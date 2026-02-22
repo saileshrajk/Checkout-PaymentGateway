@@ -6,11 +6,11 @@
         {
             if (string.IsNullOrEmpty(cardNumber) || cardNumber.Length < 4)
             {
-                return cardNumber; 
+                return cardNumber;
             }
-            var lastFourDigits = cardNumber[^4..]; 
-            var maskedSection = new string('*', cardNumber.Length - 4); 
-            return maskedSection + lastFourDigits; 
+            var lastFourDigits = cardNumber[^4..];
+            var maskedSection = new string('*', cardNumber.Length - 4);
+            return maskedSection + lastFourDigits;
         }
     }
 }

@@ -93,12 +93,12 @@ public class PaymentsController : Controller
             Currency = data.Currency,
             Amount = data.Amount,
             AuthorizationCode = data.AuthorizationCode
-        };  
+        };
     }
 
     private GetPaymentResponse MapToGetPaymentResponse(Payment? data)
     {
-       return new GetPaymentResponse
+        return new GetPaymentResponse
         {
             Id = data!.Id,
             Status = data.Status,

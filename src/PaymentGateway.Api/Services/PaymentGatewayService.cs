@@ -52,11 +52,11 @@ namespace PaymentGateway.Api.Services
             if (!validationResult.IsValid)
             {
                 _logger.LogWarning("Validation failed for payment {PaymentId}", payment.Id);
-                
+
                 payment.MarkAsRejected();
-                
+
                 _ = await _repository.Add(payment, cancellationToken);
-                
+
                 return PaymentResult.ValidationFailed(validationResult.Errors);
             }
 

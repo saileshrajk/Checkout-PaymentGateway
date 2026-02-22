@@ -40,7 +40,7 @@ public class PaymentsRepository : IPaymentsRepository
     public Task<Payment?> Get(Guid id, CancellationToken cancellationToken = default)
     {
         _payments.TryGetValue(id, out var payment);
-        
+
         return Task.FromResult(payment);
     }
 }

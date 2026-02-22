@@ -8,7 +8,7 @@ namespace PaymentGateway.Api.Services.FirstAcquiringBank
         private readonly ILogger<FirstAcquiringBankClient> _logger;
         private readonly IDateTimeProvider _dateTimeProvider;
 
-        public FirstAcquiringBankClient(HttpClient httpClient, 
+        public FirstAcquiringBankClient(HttpClient httpClient,
             IDateTimeProvider dateTimeProvider,
             ILogger<FirstAcquiringBankClient> logger)
         {
@@ -19,12 +19,12 @@ namespace PaymentGateway.Api.Services.FirstAcquiringBank
 
         public string BankName => "FirstAcquiringBank";
 
-        public async Task<BankResponse> ProcessPayment(Payment  payment, CancellationToken cancellationToken = default)
+        public async Task<BankResponse> ProcessPayment(Payment payment, CancellationToken cancellationToken = default)
         {
             try
             {
-                var request = new FirstBankPaymentRequest( payment.CardNumber, payment.ExpiryDate, payment.Currency, payment.Amount, payment.Cvv);
-             
+                var request = new FirstBankPaymentRequest(payment.CardNumber, payment.ExpiryDate, payment.Currency, payment.Amount, payment.Cvv);
+
                 var response = await _httpClient.PostAsJsonAsync("/payments", request, cancellationToken);
 
                 if (!response.IsSuccessStatusCode)
@@ -32,7 +32,7 @@ namespace PaymentGateway.Api.Services.FirstAcquiringBank
                     var errorContent = await response.Content.ReadAsStringAsync(cancellationToken);
                     _logger.LogError("Acquiring bank returned {StatusCode}: {Content}",
                         response.StatusCode, errorContent);
-                    return BankResponse.ServiceUnavailable($"Bank returned {response.StatusCode}");                    
+                    return BankResponse.ServiceUnavailable($"Bank returned {response.StatusCode}");
                 }
 
                 var firstBankResponse = await response.Content.ReadFromJsonAsync<FirstBankPaymentResponse>(cancellationToken);

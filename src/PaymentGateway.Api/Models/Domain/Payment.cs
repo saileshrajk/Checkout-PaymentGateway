@@ -67,5 +67,5 @@ namespace PaymentGateway.Api.Models.Domain
         {
             CardNumber = CardNumber.MaskCardNumber();
         }
-    }    
+    }
 }

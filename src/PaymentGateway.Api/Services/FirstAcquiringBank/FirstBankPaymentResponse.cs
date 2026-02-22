@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+
 using PaymentGateway.Api.Models;
 
 namespace PaymentGateway.Api.Services.FirstAcquiringBank;
