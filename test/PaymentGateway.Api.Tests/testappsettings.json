@@ -1,0 +1,5 @@
+{
+  "AcquiringBank" : {
+    "BaseUrl": "http://localhost:8888"    
+  }
+}

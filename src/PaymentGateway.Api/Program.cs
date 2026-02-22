@@ -34,7 +34,7 @@ public class Program
 
         builder.Services.AddHttpClient<IAcquiringBankClient, FirstAcquiringBankClient>(client =>
         {
-            var bankUrl = builder.Configuration["AcquiringBank:BaseUrl"] ?? "http://localhost:8080";
+            var bankUrl = builder.Configuration["AcquiringBank:BaseUrl"];
             if (!int.TryParse(builder.Configuration["AcquiringBank:TimeoutSeconds"], out var ttl)) ttl = 30;
 
             client.BaseAddress = new Uri(bankUrl);

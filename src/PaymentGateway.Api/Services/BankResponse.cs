@@ -26,12 +26,12 @@
             };
         }
 
-        public static BankResponse ServiceUnavailable()
+        public static BankResponse ServiceUnavailable(string errorMessage)
         {
             return new BankResponse
             {
                 IsSuccess = false,
-                ErrorMessage = "Bank service unavailable"
+                ErrorMessage = $"Bank service unavailable. {errorMessage}"
             };
         }
 

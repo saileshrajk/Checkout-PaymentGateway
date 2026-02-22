@@ -32,7 +32,7 @@ namespace PaymentGateway.Api.Services.FirstAcquiringBank
                     var errorContent = await response.Content.ReadAsStringAsync(cancellationToken);
                     _logger.LogError("Acquiring bank returned {StatusCode}: {Content}",
                         response.StatusCode, errorContent);
-                    return BankResponse.Error($"Bank returned {response.StatusCode}");
+                    return BankResponse.ServiceUnavailable($"Bank returned {response.StatusCode}");                    
                 }
 
                 var firstBankResponse = await response.Content.ReadFromJsonAsync<FirstBankPaymentResponse>(cancellationToken);

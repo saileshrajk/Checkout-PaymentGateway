@@ -39,7 +39,7 @@ namespace PaymentGateway.Api.Tests.Component
             //Assert
             Assert.True(postResponse.IsSuccessStatusCode);
 
-            var responseContent = await postResponse.Content.ReadFromJsonAsync<PostPaymentResponse>();
+            var responseContent = await postResponse.Content.ReadFromJsonAsync<PostPaymentResponse>(Fixture.JsonOptions);
 
             Assert.NotNull(responseContent);
             Assert.Equal(PaymentStatus.Authorized, responseContent.Status);
@@ -66,7 +66,7 @@ namespace PaymentGateway.Api.Tests.Component
             //Assert
             Assert.True(postResponse.IsSuccessStatusCode);
 
-            var responseContent = await postResponse.Content.ReadFromJsonAsync<PostPaymentResponse>();
+            var responseContent = await postResponse.Content.ReadFromJsonAsync<PostPaymentResponse>(Fixture.JsonOptions);
 
             Assert.NotNull(responseContent);
             Assert.Equal(PaymentStatus.Declined, responseContent.Status);
@@ -147,7 +147,7 @@ namespace PaymentGateway.Api.Tests.Component
 
             // Assert
             Assert.True(postResponse.IsSuccessStatusCode);
-            var responseContent = await postResponse.Content.ReadFromJsonAsync<PostPaymentResponse>();
+            var responseContent = await postResponse.Content.ReadFromJsonAsync<PostPaymentResponse>(Fixture.JsonOptions);
             Assert.NotNull(responseContent);
             Assert.Equal(PaymentStatus.Authorized, responseContent.Status);
             Assert.Equal("retryAuth", responseContent.AuthorizationCode);

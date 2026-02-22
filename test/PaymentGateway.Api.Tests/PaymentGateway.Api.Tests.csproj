@@ -27,4 +27,12 @@
     <ProjectReference Include="..\..\src\PaymentGateway.Api\PaymentGateway.Api.csproj" />
   </ItemGroup>
 
+
+
+  <ItemGroup>
+    <None Update="testappsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

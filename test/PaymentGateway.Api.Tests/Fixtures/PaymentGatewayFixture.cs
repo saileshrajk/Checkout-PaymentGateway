@@ -1,10 +1,9 @@
 ﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Configuration;
 
 using PaymentGateway.Api.Controllers;
 using PaymentGateway.Api.Models.Requests;
@@ -20,13 +19,29 @@ namespace PaymentGateway.Api.Tests.Fixtures
     public class PaymentGatewayFixture : WebApplicationFactory<PaymentsController>
     {
         public WireMockServer _server;
-        
+
         public string AuthorizedCardNumber => "4111111111111111";
         public string UnAuthorizedCardNumber => "4222222222222222";
 
+        public JsonSerializerOptions JsonOptions = new()
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase            
+        };
+
         public PaymentGatewayFixture()
         {
-            _server = WireMockServer.Start(8080);
+            _server = WireMockServer.Start(8888);
+            JsonOptions.Converters.Add(new JsonStringEnumConverter());
+        }       
+        
+        protected override void ConfigureWebHost(IWebHostBuilder builder)
+        {
+            builder.UseEnvironment("Test");
+            builder.ConfigureAppConfiguration((context, config) =>
+            {
+                config.SetBasePath(Directory.GetCurrentDirectory());
+                config.AddJsonFile("testappsettings.json", optional: false);
+            });
         }
 
         public void SetupAuthorizedResponse(PostPaymentRequest request, string authCode)
